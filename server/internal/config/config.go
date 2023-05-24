@@ -18,7 +18,7 @@ var once sync.Once
 func GetConfig() *Config {
 	once.Do(func() {
 		cfg := Config{}
-		if err := cleanenv.ReadConfig(".env", &cfg); err != nil {
+		if err := cleanenv.ReadConfig("../.env", &cfg); err != nil {
 			log.Fatal("cannot read the config", err)
 		}
 		instance = &cfg

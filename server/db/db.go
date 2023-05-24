@@ -1,11 +1,12 @@
-package main
+package db
 
 import (
 	"database/sql"
 	"errors"
 	"fmt"
-	"server/internal/config"
 	"time"
+
+	"server/internal/config"
 
 	_ "github.com/lib/pq"
 )
@@ -41,4 +42,12 @@ func DoWithAttempts(fn func() (*sql.DB, error), attempts int, timeout time.Durat
 	}
 
 	return nil, errors.New(fmt.Sprintf("failed after %d attempts, last error: %s", attempts, err.Error()))
+}
+
+func (db *Database) Close() {
+	db.db.Close()
+}
+
+func (db *Database) GetDB() *sql.DB {
+	return db.db
 }
